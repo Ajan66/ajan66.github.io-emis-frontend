@@ -87,12 +87,11 @@
             formData.append('image', file);
 
             try {
-    // Pointing to the correct backend route with /api prefix
-    const response = await fetch('https://emis-backend-qt8l.onrender.com/api/analyze', {
-        method: 'POST',
-        body: formData
-    });
-
+                // FIXED: Added /api/ prefix to the URL
+                const response = await fetch('https://emis-backend-qt8l.onrender.com/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
 
                 if (!response.ok) throw new Error('Server returned an error status.');
 
