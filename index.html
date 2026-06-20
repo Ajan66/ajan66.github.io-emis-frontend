@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
@@ -87,8 +86,8 @@
             formData.append('image', file);
 
             try {
-                // FIXED: Added /api/ prefix to the URL
-                const response = await fetch('https://emis-backend-qt8l.onrender.com/api/analyze', {
+                // Backend URL corrected to /analyze (without /api/ as per your server route)
+                const response = await fetch('https://emis-backend-qt8l.onrender.com/analyze', {
                     method: 'POST',
                     body: formData
                 });
@@ -98,7 +97,7 @@
                 const data = await response.json();
                 tableBody.innerHTML = '';
 
-                if(data.data) {
+                if(data.success && data.data) {
                     data.data.forEach(item => {
                         const row = `<tr>
                             <td class="p-3 font-medium text-slate-700">${item.student_name || 'N/A'}</td>
@@ -110,7 +109,7 @@
                     statusMessage.classList.add('hidden');
                     resultsSection.classList.remove('hidden');
                 } else {
-                    throw new Error('Data format mismatch.');
+                    throw new Error('Data format mismatch or no data found.');
                 }
             } catch (err) {
                 statusMessage.textContent = '⚠️ பிழை: ' + err.message;
